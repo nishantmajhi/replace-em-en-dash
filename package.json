@@ -1,0 +1,144 @@
+{
+  "name": "replace-em-en-dash",
+  "displayName": "Replace Em/En Dash",
+  "description": "Replace all em dashes (U+2014) and en dashes (U+2013) with plain hyphens (-) across your entire project, a folder, or a single file.",
+  "version": "0.1.0",
+  "publisher": "your-publisher-name",
+  "license": "SEE LICENSE IN LICENSE",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Formatters",
+    "Other"
+  ],
+  "keywords": [
+    "dash",
+    "em dash",
+    "en dash",
+    "hyphen",
+    "replace",
+    "typography",
+    "find and replace",
+    "sanitize",
+    "clean text"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-github-username/replace-em-en-dash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-github-username/replace-em-en-dash/issues"
+  },
+  "homepage": "https://github.com/your-github-username/replace-em-en-dash#readme",
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "dashReplacer.replaceInProject",
+        "title": "Replace Em/En Dashes in Entire Project",
+        "category": "Dash Replacer"
+      },
+      {
+        "command": "dashReplacer.replaceInFolder",
+        "title": "Replace Em/En Dashes in This Folder",
+        "category": "Dash Replacer"
+      },
+      {
+        "command": "dashReplacer.replaceInFile",
+        "title": "Replace Em/En Dashes in This File",
+        "category": "Dash Replacer"
+      },
+      {
+        "command": "dashReplacer.previewInProject",
+        "title": "Preview Em/En Dash Occurrences in Project",
+        "category": "Dash Replacer"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "dashReplacer.replaceInFolder",
+          "when": "explorerResourceIsFolder",
+          "group": "7_modification"
+        },
+        {
+          "command": "dashReplacer.replaceInFile",
+          "when": "!explorerResourceIsFolder",
+          "group": "7_modification"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "dashReplacer.replaceInProject"
+        },
+        {
+          "command": "dashReplacer.previewInProject"
+        },
+        {
+          "command": "dashReplacer.replaceInFolder",
+          "when": "false"
+        },
+        {
+          "command": "dashReplacer.replaceInFile",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Replace Em/En Dash",
+      "properties": {
+        "dashReplacer.includeGlob": {
+          "type": "string",
+          "default": "**/*",
+          "description": "Glob pattern for files to include when scanning the project or a folder."
+        },
+        "dashReplacer.excludeGlob": {
+          "type": "string",
+          "default": "**/node_modules/**,**/.git/**,**/out/**,**/dist/**,**/build/**,**/.vscode/**,**/*.min.js,**/*.lock",
+          "description": "Comma-separated glob patterns for files/folders to exclude from scanning."
+        },
+        "dashReplacer.maxFileSizeKB": {
+          "type": "number",
+          "default": 2048,
+          "description": "Skip files larger than this size (in KB) to avoid touching large binary or data files."
+        },
+        "dashReplacer.confirmBeforeReplace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a confirmation prompt before performing replacements."
+        },
+        "dashReplacer.openSummaryInOutputChannel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Log a detailed per-file summary to the 'Dash Replacer' output channel after running."
+        },
+        "dashReplacer.emDashReplacement": {
+          "type": "string",
+          "default": "-",
+          "description": "Text that replaces each em dash (U+2014). Defaults to a plain hyphen."
+        },
+        "dashReplacer.enDashReplacement": {
+          "type": "string",
+          "default": "-",
+          "description": "Text that replaces each en dash (U+2013). Defaults to a plain hyphen."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "test": "npm run compile && node --test \"tests/*.test.js\""
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5",
+    "@vscode/vsce": "^2.32.0"
+  }
+}
